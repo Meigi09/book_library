@@ -25,7 +25,7 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
+            leading: Icon(Icons.app_registration),
             title: Text('Register A Book'),
             onTap: () {
               // Handle Settings tap
