@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-class RoundedButton extends StatelessWidget {
+class TwoSideRoundedButton extends StatelessWidget {
   final String text;
+  final double radious;
   final Function press;
-  const RoundedButton({super.key, required this.text, required this.press});
+  const TwoSideRoundedButton({
+    Key? key,
+    required this.text,
+    this.radious = 29,
+    required this.press,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +19,16 @@ class RoundedButton extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius:
-            BorderRadius.only(
-                topLeft: Radius.circular(29),
-                bottomRight: Radius.circular(29)
-            )
+          color: Colors.black,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(radious),
+            bottomRight: Radius.circular(radious),
+          ),
         ),
         child: Text(
           text,
           style: TextStyle(color: Colors.white),
         ),
-
       ),
     );
   }

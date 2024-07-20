@@ -1,48 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:book_library/model/category.dart';
 
 class CategoryList extends StatefulWidget {
-  const CategoryList({super.key});
+  final Function(int) onCategorySelected;
+
+  const CategoryList({Key? key, required this.onCategorySelected}) : super(key: key);
 
   @override
-  State<CategoryList> createState() => _CategoryListState();
+  _CategoryListState createState() => _CategoryListState();
 }
 
 class _CategoryListState extends State<CategoryList> {
-  int selectedIndex=0;
-  List categories=['All','Favorite','Read','Unread','Notes'];
+  int selected = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 20.0/2),
-      height: 30,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context,index)=>GestureDetector(
-            onTap: (){
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: categories.map((category) {
+          int index = categories.indexOf(category);
+          return InkWell(
+            onTap: () {
               setState(() {
-                selectedIndex=index;
+                selected = index;
               });
+              widget.onCategorySelected(index);
             },
             child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 7),
               alignment: Alignment.center,
-              margin: EdgeInsets.only(
-                left: 20.0,
-                right: index==categories.length-1?20.0:0,
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              height: 41,
+              margin: EdgeInsets.only(left: index == 0 ? 20 : 0),
               decoration: BoxDecoration(
-                  color: index==selectedIndex?
-                  Colors.white.withOpacity(0.4) :
-                  Colors.transparent,
-                  borderRadius: BorderRadius.circular(12)
-              ),
+                  borderRadius: BorderRadius.circular(6),
+                  color: selected == index ? Colors.green : Colors.transparent),
               child: Text(
-                categories[index],
-                style: TextStyle(color: Colors.white),
+                category.title,
+                style: TextStyle(
+                    fontSize: selected == index ? 14 : 12,
+                    fontWeight: FontWeight.w600,
+                    color: selected == index ? Colors.white : Colors.grey.shade400),
               ),
             ),
-          )),
+          );
+        }).toList(),
+      ),
     );
   }
 }
