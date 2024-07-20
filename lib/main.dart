@@ -11,6 +11,7 @@ void main() {
 class BookLibraryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => BookProvider()),
@@ -18,13 +19,12 @@ class BookLibraryApp extends StatelessWidget {
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
+          final themeProvider = Provider.of<ThemeProvider>(context);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Book Library',
-            theme: ThemeData.light(
-            ),
+            theme: themeProvider.isDarkTheme ? themeProvider.darkTheme : themeProvider.lightTheme,
             darkTheme: ThemeData.dark(),
-            themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             home: HomeScreen(),
 
           );

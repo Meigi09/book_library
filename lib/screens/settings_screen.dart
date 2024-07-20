@@ -18,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 SwitchListTile(
                   title: Text('Dark Mode'),
-                  value: themeProvider.isDarkMode,
+                  value: themeProvider.isDarkTheme,
                   onChanged: (value) {
                     themeProvider.toggleTheme();
                   },
